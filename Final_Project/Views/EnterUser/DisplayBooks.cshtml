@@ -1,0 +1,51 @@
+﻿@model List<Book>
+
+@{
+    ViewData["Title"] = "Books";
+    Layout = "~/Views/Shared/_Layout_of_us.cshtml";
+
+    int i = 1;
+
+}
+
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&family=Noto+Serif:wght@700&family=Pacifico&family=Playfair+Display:wght@600&family=Raleway:ital,wght@0,100;0,200;1,100&family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+</head>
+<div class="container ">
+
+    @*<a href="/book/Create" class="btn btn-outline-danger m-3">Add</a>*@
+
+    <table class="table table-hover  table-border">
+        <thead>
+            <tr class="">
+                <th scope="col"></th>
+                <th scope="col">Book</th>
+                <th scope="col">Image </th>
+                <th scope="col">Description</th>
+                <th scope="col">Auther Name</th>
+
+                <th scope="col">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row" class="text-danger">@(i++)</th>
+                    <td>@item.Name</td>
+                    <td>
+                        <img src="~/images/@item.Photo" style="height:100px" />
+                    </td>
+
+                    <td>@item.Description</td>
+                    <td>@item.author?.Name</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

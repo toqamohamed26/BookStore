@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "GetAllUsers";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<style>
+    .hide {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+</style>
+@model IEnumerable<Final_Project.ViewModels.UsersDetailsViewModel>
+
+<h1>ALL Users</h1>
+
+<p>
+    <a asp-action="AddUser" class="btn btn-outline-primary">Create User</a>
+</p>
+
+<div class="search">
+    <label>
+        <input type="text" id="searchInput" placeholder="Search here">
+        <ion-icon name="search-outline"></ion-icon>
+    </label>
+</div>
+
+<div id="allUsersContainer">
+    <h2>All Users</h2>
+    <table id="allUsersTable" class="table table-striped">
+        <tbody>
+            @Html.Partial("_UserTablePartial", Model)
+        </tbody>
+    </table>
+</div>
+
+<div id="searchResultsContainer" class="hide" >
+    <h2>Search Results</h2>
+    <table id="searchUsersTable" class="table table-striped">
+        <tbody>
+           
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#searchInput').on('input', function () {
+                var searchValue = $(this).val().trim();
+                if (searchValue !== '') {
+                    searchUsers(searchValue);
+                } else {
+                    resetSearch();
+                }
+            });
+        });
+
+        function searchUsers(searchValue) {
+            $.ajax({
+                url: '/User/Search',
+                type: 'GET',
+                data: { searchValue: searchValue },
+                success: function (result) {
+                    if (result.trim() !== '') {
+                        $('#allUsersContainer').hide();
+                        $('#searchResultsContainer').show().find('tbody').html(result);
+                        $('#notFoundMessage').addClass('hide');
+                        
+                    } else {
+                        $('#allUsersContainer').hide();
+                        $('#searchResultsContainer').hide();
+                        $('#notFoundMessage').removeClass('hide');
+                        
+                    }
+                },
+                error: function () {
+                    alert('Error occurred while searching users.');
+                }
+            });
+        }
+
+
+        function resetSearch() {
+            $.ajax({
+                url: '/User/ResetSearch',
+                type: 'GET',
+                success: function (result) {
+                    if (result.trim() !== '') {
+                        $('#allUsersContainer').show();
+                        $('#searchResultsContainer').hide();
+                        $('#searchResultsContainer').addClass('hide');
+                        
+
+                    } else {
+                        $('#allUsersContainer').show();
+                        $('#searchResultsContainer').hide();
+                        
+                    }
+                    $('#searchUsersTable tbody').empty(); // Clear search results table
+                },
+                error: function () {
+                    alert('Error occurred while resetting the search.');
+                }
+            });
+        }
+    </script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    
+}

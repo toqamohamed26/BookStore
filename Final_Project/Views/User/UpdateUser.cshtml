@@ -1,0 +1,105 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Editing";
+
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+
+}
+@model Final_Project.ViewModels.UsersDetailsViewModel
+
+
+<div class="container  d-flex justify-content-center mt-5">
+    <div class="card shadow mt-4  p-4 w-50">
+        <h2 class=" text-center">Edit New User</h2>
+        <hr />
+
+        <div class="row ">
+            <div class="col-md-8 col-lg-12">
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label ">User Name::</label>
+                        <input asp-for="Name" class="form-control p-2" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-5 ">
+                        <label asp-for="Email" class="control-label ">Email:</label>
+                        <input asp-for="Email" type="Email" class="form-control p-2" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-5">
+                        <label for="formFile" asp-for="Photo" class="control-label">Photo:</label>
+                        <br />
+                        @if (Model.Photo != null)
+                        {
+                            <td>
+                                <img src="/images/@Model.Photo" width="100px">
+                            </td>
+                        }
+                        <div class="custom-file mt-2">
+                            <input type="file" name="imageFile" class="custom-file-input p-2" id="formFile" accept="image/*"  />
+                            <label class="custom-file-label" for="formFile">Choose file</label>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.Photo))
+                        {
+                            <div class="mt-2">Current photo: @Model.Photo</div>
+                        }
+                    </div>
+                    <div class="form-group mt-5 ">
+                        <label asp-for="Addrss" class="control-label ">Addrss:</label>
+                        <input asp-for="Addrss" class="form-control p-2" />
+                        <span asp-validation-for="Addrss" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-5 ">
+                        <label asp-for="Phone" class="control-label ">Phone:</label>
+                        <input asp-for="Phone" type="Phone" class="form-control p-2" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group mt-5">
+                        <label asp-for="Role" class="control-label ">Role </label>
+                        <select asp-for="Role" class="form-control p-2" asp-items="Model.RoleOptions">
+                            <option value="">Select a Role</option>
+                        </select>
+                        <span asp-validation-for="Role" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-group mt-5 justify-content-center  text-center  ">
+                        <button class="btn btn-block btn-lg w-100" style="background-color: #573b8a;" type="submit"><span style="color: white;">Update</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    // Get the file input element
+    const fileInput = document.getElementById('formFile');
+
+    // Add an event listener for the 'change' event
+    fileInput.addEventListener('change', function () {
+        // Get the name of the selected file
+        const fileName = fileInput.files[0].name;
+
+        // Update the label text with the file name
+        const label = document.querySelector('.custom-file-label');
+        label.textContent = fileName;
+
+        // Update the input group text with the file name
+        const selectedFileName = document.querySelector('.selected-file-name');
+        selectedFileName.textContent = fileName;
+    });
+</script>
+@section scripts{
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

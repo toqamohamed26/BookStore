@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> usermanager
+@{
+    var user = await usermanager.GetUserAsync(User);
+    Layout = "~/Views/Shared/_Layout_of_us.cshtml";
+
+}
+@model Final_Project.ViewModels.AddBook
+<div class="container  d-flex justify-content-center mt-5  ">
+    <div class="card shadow mt-4  p-4 w-50 bg-dark">
+        <h2 class=" text-center">Add New Book</h2>
+        <hr />
+        <div class="row ">
+            <div class="col-md-8 col-lg-12  ">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="Author_Id" value="@user.Id" />
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label text-light">Name</label>
+                        <input asp-for="Name" type="text" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label text-light">Title</label>
+                        <input asp-for="Title"  class="form-control " />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label text-light">Description</label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-group mt-5 ">
+                        <label for="formFile" asp-for="Photo" class="control-label text-light ">Photo:</label>
+                        <div class="custom-file">
+                            <input type="file" name="imageFile" class="custom-file-input " id="formFile" accept="image/*" required />
+                            <label class="custom-file-label" for="formFile">Choose file</label>
+                        </div>
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Salary" class="control-label text-light">Salary</label>
+                        <input asp-for="Salary"  class="form-control" />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="categories_Id" class="control-label text-light">Categories</label>
+                        <select asp-for="categories_Id"  asp-items="@(new SelectList(Model.Cat, "Id", "Name"))" class="form-control p-2"></select>
+                        <span asp-validation-for="categories_Id" class="text-danger"></span>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    // Get the file input element
+    const fileInput = document.getElementById('formFile');
+
+    // Add an event listener for the 'change' event
+    fileInput.addEventListener('change', function () {
+        // Get the name of the selected file
+        const fileName = fileInput.files[0].name;
+
+        // Update the label text with the file name
+        const label = document.querySelector('.custom-file-label');
+        label.textContent = fileName;
+
+        // Update the input group text with the file name
+        const selectedFileName = document.querySelector('.selected-file-name');
+        selectedFileName.textContent = fileName;
+    });
+</script>
+@section scripts{
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

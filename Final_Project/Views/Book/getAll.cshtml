@@ -1,0 +1,148 @@
+﻿@model List<Book>
+
+@{
+
+    ViewData["Title"] = "getAll";
+    Layout = "~/Views/Shared/_Layout_of_us.cshtml";
+
+    int i = 1;
+
+}
+
+
+
+
+
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&family=Noto+Serif:wght@700&family=Pacifico&family=Playfair+Display:wght@600&family=Raleway:ital,wght@0,100;0,200;1,100&family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body, .card {
+            background-color: #f2f2f2;
+            margin-right:10px;
+
+        }
+        .card{
+                        font-family: 'Cairo', sans-serif;
+            font-family: 'Noto Serif', serif;
+            font-family: 'Pacifico', cursive;
+            font-family: 'Playfair Display', serif;
+            font-family: 'Raleway', sans-serif;
+            font-family: 'Roboto Slab', serif;
+        }
+    
+        .fas.fa-heart:hover {
+            color: #f44336 !important;
+        }
+
+        .fas.fa-share-alt:hover {
+            color: #0d47a1 !important;
+        }
+
+        .bg-image {
+            border-radius: 10px;
+        }
+
+        h4{
+            padding-left:20px;
+            padding-top: 20px;
+            letter-spacing:2px;
+        }
+        p{
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+
+        .btn, .authname {
+            color: #002e6c;
+
+        }
+        h1{
+            color: #002e6c;
+            font-weight:bold;
+            letter-spacing:1px;
+            font-size:xx-large;
+        }
+        .pop{
+            padding-left:30px;
+            padding-right: 30px;
+            padding-top: 30px;
+        }
+        .free{
+            padding-left: 40px;
+        }
+
+        .input-group{
+            font-size:small;
+        }
+    </style>
+
+</head>
+
+<div class="d-flex justify-content-between pop">
+    <h3>POPULAR BOOKLISTS</h3>
+    <form action="/Book/search" class="text-center d-flex justify-content-center">
+        <div class="input-group rounded">
+
+            <input name="Name" id="Name" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button type="submit" class="input-group-text border-0" id="search-addon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+            </button>
+        </div>
+
+    </form>
+</div>
+<h1 class="free">
+    Free Books
+</h1>
+<div class="container d-flex justify-content-center flex-wrap">
+
+  @foreach (var item in Model)
+            {    
+                <section class="mx-auto m-5 " style="max-width: 23rem;">
+
+        <div class="card fw-bold">
+            <h4 class="authname"> BY : @item.author?.Name</h4>
+            <div class="bg-image d-flex justify-content-center hover-overlay ripple rounded-0 " data-mdb-ripple-color="light">
+                    <img class="img-fluid  w-50" src="/images/@item.Photo"
+                     alt="Card image cap" />
+                <a href="#!">
+                        <div class="mask" style="background-color: #f2f2f2;"></div>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="">
+                        <h4>@item.Name</h4>
+                        <p >@item.Description</p>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+                <div class="d-flex justify-content-between " style="padding-left:20px;">
+                    <p class="btn btn-link link-danger p-md-1 my-1" data-mdb-toggle="collapse" href="#collapseContent"
+                       role="button" aria-expanded="false" aria-controls="collapseContent"> for only
+                  $@item.Salary </p>
+                    <div style="padding-right:20px;" class="pb-2">
+                        <div class="pb-2" style=" color:#002e6c;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                            </svg>
+                       </div>
+                        <div style=" color:#cf4030;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+							</svg>
+                       </div>
+
+                    </div>
+                </div>
+        </div>
+
+    </section>
+    }
+</div>

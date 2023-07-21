@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> usermanager
+@{
+    Layout = "~/Views/Shared/_Layout_of_us.cshtml";
+    var user = await usermanager.GetUserAsync(User);
+}
+@model Final_Project.ViewModels.AddBook
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="Author_Id" value="@user.Id" />
+    <input type="hidden" asp-for="Id" />
+
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="formFile" asp-for="Photo" class="control-label">Photo:</label>
+        <br />
+        @if (Model.Photo != null)
+        {
+            <td>
+                <img src="/images/@Model.Photo" width="100px">
+            </td>
+        }
+        <div class="custom-file mt-2">
+            <input type="file" name="imageFile" class="custom-file-input p-2" id="formFile" accept="image/*" />
+            <label class="custom-file-label" for="formFile">Choose file</label>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.Photo))
+        {
+            <div class="mt-2">Current photo: @Model.Photo</div>
+        }
+    </div>
+    <div class="form-group">
+        <label asp-for="Salary" class="control-label">Salary</label>
+        <input asp-for="Salary" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="categories_Id" class="control-label">Categories</label>
+        <select asp-for="categories_Id" class="form-control p-2" asp-items="@(new SelectList(Model.Cat, "Id", "Name"))" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<script>
+    // Get the file input element
+    const fileInput = document.getElementById('formFile');
+
+    // Add an event listener for the 'change' event
+    fileInput.addEventListener('change', function () {
+        // Get the name of the selected file
+        const fileName = fileInput.files[0].name;
+
+        // Update the label text with the file name
+        const label = document.querySelector('.custom-file-label');
+        label.textContent = fileName;
+
+        // Update the input group text with the file name
+        const selectedFileName = document.querySelector('.selected-file-name');
+        selectedFileName.textContent = fileName;
+    });
+</script>
+@section scripts{
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
