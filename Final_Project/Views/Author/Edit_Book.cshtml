@@ -5,6 +5,8 @@
     var user = await usermanager.GetUserAsync(User);
 }
 @model Final_Project.ViewModels.AddBook
+
+
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" name="Author_Id" value="@user.Id" />
     <input type="hidden" asp-for="Id" />

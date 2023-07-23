@@ -4,22 +4,33 @@
     ViewData["Title"] = "Index";
     Layout = "_Layout_Admin";
 }
+<style>
+    h2{
+        letter-spacing:2px;
+    }
+</style>
+<div class="d-flex justify-content-between pt-5">
 
-<h1>ALL Categories</h1>
+    <p class="">
+        <a asp-action="Create" class="btn btn-danger text-decoration-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+            </svg>
+        </a>
+    </p>
 
-<p>
-    <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
-</p>
-<div class="search">
-    <label>
-        <input type="text" id="searchInput" placeholder="Search here">
-        <ion-icon name="search-outline"></ion-icon>
-    </label>
+    <div class="search">
+        <label>
+            <input type="text" id="searchInput" placeholder="Search here">
+            <ion-icon name="search-outline"></ion-icon>
+        </label>
+    </div>
+
 </div>
-
 <div id="allUsersContainer">
-    <h2>All Users</h2>
-    <table id="allUsersTable" class="table table-striped">
+    <h2 class="lead p-3"> Categories</h2>
+    <table id="allUsersTable" class="table table-striped ">
         <tbody>
             @Html.Partial("_CatogriesTablePartial", Model)
         </tbody>
@@ -27,7 +38,6 @@
 </div>
 
 <div id="searchResultsContainer" class="hide">
-    <h2>Search Results</h2>
     <table id="searchUsersTable" class="table table-striped">
         <tbody>
         </tbody>

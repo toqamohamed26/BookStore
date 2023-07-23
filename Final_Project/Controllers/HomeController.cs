@@ -127,7 +127,7 @@ namespace Final_Project.Controllers
                     ApplicationUser user = new ApplicationUser()
                     {
                         Email = model.Email,
-                        Address = model.Addrss,
+                        Address = model.Address,
                         PhoneNumber = model.Phone,
                         UserName = model.Name,
                         Photo=model.Photo

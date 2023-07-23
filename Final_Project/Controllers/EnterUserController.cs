@@ -53,7 +53,7 @@ namespace Final_Project.Controllers
             {
                 id = user.Id,
                 Email = user.Email,
-                Addrss = user.Address,
+                Address = user.Address,
                 Phone = user.PhoneNumber,
                 Name = user.UserName,
                 Role = roles.FirstOrDefault(),
@@ -77,7 +77,7 @@ namespace Final_Project.Controllers
             {
                 id = user.Id,
                 Email = user.Email,
-                Addrss = user.Address,
+                Address = user.Address,
                 Phone = user.PhoneNumber,
                 Name = user.UserName,
                 Role = roles.FirstOrDefault(),
@@ -106,7 +106,7 @@ namespace Final_Project.Controllers
                 }
 
                 user.Email = model.Email;
-                user.Address = model.Addrss;
+                user.Address = model.Address;
                 user.PhoneNumber = model.Phone;
                 user.UserName = model.Name;
 

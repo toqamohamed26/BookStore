@@ -36,7 +36,7 @@ namespace Final_Project.Controllers
             {
                 id = u.Id,
                 Email = u.Email,
-                Addrss = u.Address,
+                Address = u.Address,
                 Phone = u.PhoneNumber,
                 Name = u.UserName,
                 Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault(),
@@ -50,7 +50,7 @@ namespace Final_Project.Controllers
         {
             var viewmodel = new RegisterViewModel()
             {
-                RoleOptions = _roleManager.Roles.Select(r => new SelectListItem { Value = r.Name, Text = r.Name }).ToList()
+                RoleOptions = _roleManager.Roles.Select(r => new SelectListItem { Value = r.Name, Text = r.Name }).Take(2).ToList()
             };
             return View(viewmodel);
         }
@@ -78,7 +78,7 @@ namespace Final_Project.Controllers
                     ApplicationUser user = new ApplicationUser()
                     {
                         Email = model.Email,
-                        Address = model.Addrss,
+                        Address = model.Address,
                         PhoneNumber = model.Phone,
                         UserName = model.Name,
                         Photo = model.Photo
@@ -119,7 +119,7 @@ namespace Final_Project.Controllers
 
                 }
             }
-            model.RoleOptions = _roleManager.Roles.Select(r => new SelectListItem { Value = r.Name, Text = r.Name }).ToList();
+            model.RoleOptions = _roleManager.Roles.Select(r => new SelectListItem { Value = r.Name, Text = r.Name }).Take(2).ToList();
             return View(model);
         }
         public async Task<IActionResult> UpdateUser(string id)
@@ -135,7 +135,7 @@ namespace Final_Project.Controllers
             {
                 id = user.Id,
                 Email = user.Email,
-                Addrss = user.Address,
+                Address = user.Address,
                 Phone = user.PhoneNumber,
                 Name = user.UserName,
                 Role = roles.FirstOrDefault(),
@@ -166,7 +166,7 @@ namespace Final_Project.Controllers
                 }
 
                 user.Email = model.Email;
-                user.Address = model.Addrss;
+                user.Address = model.Address;
                 user.PhoneNumber = model.Phone;
                 user.UserName = model.Name;
 
@@ -242,7 +242,7 @@ namespace Final_Project.Controllers
             {
                 id = u.Id,
                 Email = u.Email,
-                Addrss = u.Address,
+                Address = u.Address,
                 Phone = u.PhoneNumber,
                 Name = u.UserName,
                 Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault(),

@@ -4,71 +4,165 @@
 @{
     ViewData["Title"] = "Editing";
 
-    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    Layout = "~/Views/Shared/_Layout_of_us.cshtml";
 }
 @model Final_Project.ViewModels.UsersDetailsViewModel
 
+<style>
 
-<div class="container  d-flex justify-content-center mt-5">
-    <div class="card shadow mt-4  p-4 w-50">
-        <h2 class=" text-center">Edit New User</h2>
-        <hr />
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        <div class="row ">
-            <div class="col-md-8 col-lg-12">
-                <form method="post" enctype="multipart/form-data">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <input type="hidden" asp-for="Role" />
-                    <div class="form-group">
-                        <label asp-for="Name" class="control-label ">User Name::</label>
-                        <input asp-for="Name" class="form-control p-2" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mt-5 ">
-                        <label asp-for="Email" class="control-label ">Email:</label>
-                        <input asp-for="Email" type="Email" class="form-control p-2" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mt-5">
-                        <label for="formFile" asp-for="Photo" class="control-label">Photo:</label>
-                        <br />
-                        @if (Model.Photo != null)
-                        {
-                            <td>
-                                <img src="/images/@Model.Photo" width="100px">
-                            </td>
-                        }
-                        <div class="custom-file mt-2">
-                            <input type="file" name="imageFile" class="custom-file-input p-2" id="formFile" accept="image/*" />
-                            <label class="custom-file-label" for="formFile">Choose file</label>
-                        </div>
-                        @if (!string.IsNullOrEmpty(Model.Photo))
-                        {
-                            <div class="mt-2">Current photo: @Model.Photo</div>
-                        }
-                    </div>
-                    <div class="form-group mt-5 ">
-                        <label asp-for="Addrss" class="control-label ">Addrss:</label>
-                        <input asp-for="Addrss" class="form-control p-2" />
-                        <span asp-validation-for="Addrss" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mt-5 ">
-                        <label asp-for="Phone" class="control-label ">Phone:</label>
-                        <input asp-for="Phone" type="Phone" class="form-control p-2" />
-                        <span asp-validation-for="Phone" class="text-danger"></span>
-                    </div>
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+}
 
+.wrapper{
+    padding: 30px 50px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    margin: 10px auto;
+    max-width: 600px;
+}
+h4{
+    letter-spacing: -1px;
+    font-weight: 400;
+}
+.img{
+    width: 70px;
+    height: 70px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+#img-section p,#deactivate p{
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+#img-section b,#img-section button,#deactivate b{
+    font-size: 14px; 
+}
 
-                    <div class="form-group mt-5 justify-content-center  text-center  ">
-                        <button class="btn btn-block btn-lg w-100" style="background-color: #573b8a;" type="submit"><span style="color: white;">Update</span></button>
-                    </div>
-                </form>
+label{
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #777;
+    padding-left: 3px;
+}
+
+.form-control{
+    border-radius: 10px;
+}
+
+input[placeholder]{
+    font-weight: 500;
+}
+.form-control:focus{
+    box-shadow: none;
+    border: 1.5px solid #0779e4;
+}
+select{
+    display: block;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    height: 40px;
+    padding: 5px 10px;
+    /* -webkit-appearance: none; */
+}
+
+select:focus{
+    outline: none;
+}
+.button{
+    background-color: #fff;
+    color: #0779e4;
+}
+.button:hover{
+    background-color: #0779e4;
+    color: #fff;
+}
+.btn-primary{
+    background-color: #0779e4;
+}
+.danger{
+    background-color: #fff;
+    color: #e20404;
+    border: 1px solid #ddd;
+}
+.danger:hover{
+    background-color: #e20404;
+    color: #fff;
+}
+
+</style>
+
+<div class="wrapper bg-white mt-sm-5">
+    <h4 class="pb-4 border-bottom">Account settings</h4>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Role" />
+
+        <div class="form-group mt-5">
+            <label for="formFile" asp-for="Photo" class="control-label">Photo:</label>
+            <br />
+            @if (Model.Photo != null)
+            {
+                <td>
+                    <img src="/images/@Model.Photo" width="100px">
+                </td>
+            }
+            <div class="custom-file mt-2">
+                <input type="file" name="imageFile" class="custom-file-input p-2" id="formFile" accept="image/*" />
+                <label class="custom-file-label" for="formFile">Choose file</label>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Photo))
+            {
+                <div class="mt-2">Current photo: @Model.Photo</div>
+            }
+        </div>
+        <div class="py-2">
+        <div class="row py-2">
+            <div class="col-md-6">
+
+                <label asp-for="Name"> Name</label>
+                    <input asp-for="Name" class="bg-light form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3">
+                    <label asp-for="Email">Email Address</label>
+                    <input asp-for="Email" type="Email" class="bg-light form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
+        <div class="row py-2">
+            <div class="col-md-6">
+                <label asp-for="Address"> Address</label>
+                    <input asp-for="Address" class="bg-light form-control" >
+                    <span asp-validation-for="Address" class="text-danger"></span>
 
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3">
+                <label asp-for="Phone">Phone Number</label>
+                <input asp-for="Phone" type="tel" class="bg-light form-control" >
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+
+            </div>
+        </div>
+            <div class="form-group mt-5 justify-content-center  text-center  ">
+                <button class="btn btn-block btn-lg w-100" style="background-color: #573b8a;" type="submit"><span style="color: white;">Update</span></button>
+            </div>
+
+        </div>
+    </form>
 
     </div>
-</div>
+
 <script>
     // Get the file input element
     const fileInput = document.getElementById('formFile');
